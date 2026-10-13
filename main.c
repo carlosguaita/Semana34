@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 
+float validarFlotanteRango(float min, float max);
+
+
+
 int main (int argc, char *argv[]) {
 
     char nombres[5][20], matSimp[3][20]={"Mat","Len","Prog"}, aprep[3][20];
@@ -9,6 +13,8 @@ int main (int argc, char *argv[]) {
     int opc, opc1;
     int contE=0;
     float promE=0 , promM[3]={0}, min, max;
+
+    float rMin = 0;
 
     do
     {
@@ -28,12 +34,17 @@ int main (int argc, char *argv[]) {
             printf("Ingrese los datos del estudiante %d:\n",contE);
             printf("Nombre: ");
             scanf("%s",&nombres[contE]);
+
             printf("Matematicas: ");
-            scanf("%f",&m1[contE]);
+            
+            m1[contE] = validarFlotanteRango(1,100);
+            
             printf("Lenguaje: ");
-            scanf("%f",&m2[contE]);
+            m2[contE] = validarFlotanteRango(0,10);
+
             printf("Programacion: ");
-            scanf("%f",&m3[contE]);
+            m3[contE] = validarFlotanteRango(0,20);
+
             contE++;
             break;
         case 2:
@@ -144,4 +155,19 @@ int main (int argc, char *argv[]) {
 
 
     return 0;
+}
+
+
+float validarFlotanteRango(float min, float max){
+    int val = 0;
+    float aux = 0;
+    do{
+        val = scanf("%f",&aux);
+        while((getchar())!='\n');
+        if (aux < min || aux > max || val != 1)
+        {
+            printf("Error: Valor ingresado incorrecto\n");
+        }
+    }while(aux < min || aux > max || val != 1);
+    return aux;
 }
