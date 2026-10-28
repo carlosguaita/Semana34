@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
-float validarFlotanteRango(float min, float max);
+#include "funciones.h"
 
 
 
@@ -12,7 +11,7 @@ int main (int argc, char *argv[]) {
 
     int opc, opc1;
     int contE=0;
-    float promE=0 , promM[3]={0}, min, max;
+    float promE=0 , promM[3]={0};
 
     float rMin = 0;
 
@@ -27,13 +26,15 @@ int main (int argc, char *argv[]) {
         printf(">> ");
 
         scanf("%d",&opc);
+        while((getchar())!='\n');
 
         switch (opc)
         {
         case 1:
             printf("Ingrese los datos del estudiante %d:\n",contE);
             printf("Nombre: ");
-            scanf("%s",&nombres[contE]);
+
+            leerCadena(nombres[contE],20);
 
             printf("Matematicas: ");
             
@@ -65,47 +66,7 @@ int main (int argc, char *argv[]) {
 
         case 3:
 
-            min = 10;
-            max = 0;
-            for (int i = 0; i < contE; i++)
-            {
-                if (m1[i]<=min){
-                    min = m1[i];
-                }
-                if (m1[i]>max){
-                    max = m1[i];
-                }
-            }
-            maxminC[0][0]=min;
-            maxminC[0][1]=max;
-
-            min = 10;
-            max = 0;
-            for (int i = 0; i < contE; i++)
-            {
-                if (m2[i]<=min){
-                    min = m2[i];
-                }
-                if (m2[i]>max){
-                    max = m2[i];
-                }
-            }
-            maxminC[1][0]=min;
-            maxminC[1][1]=max;
-
-            min = 10;
-            max = 0;
-            for (int i = 0; i < contE; i++)
-            {
-                if (m3[i]<=min){
-                    min = m3[i];
-                }
-                if (m3[i]>max){
-                    max = m3[i];
-                }
-            }
-            maxminC[2][0]=min;
-            maxminC[2][1]=max;
+            notasAltasBajas(m1,m2,m3,contE,maxminC);
 
             printf("Mats\t\tMin\t\tMax\n");
 
@@ -157,17 +118,3 @@ int main (int argc, char *argv[]) {
     return 0;
 }
 
-
-float validarFlotanteRango(float min, float max){
-    int val = 0;
-    float aux = 0;
-    do{
-        val = scanf("%f",&aux);
-        while((getchar())!='\n');
-        if (aux < min || aux > max || val != 1)
-        {
-            printf("Error: Valor ingresado incorrecto\n");
-        }
-    }while(aux < min || aux > max || val != 1);
-    return aux;
-}
